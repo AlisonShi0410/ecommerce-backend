@@ -37,7 +37,6 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
     /*
     public User(Long id, String email, String password,
                 String firstName, String lastName, String phone,
@@ -50,10 +49,21 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
     public User(){};
-
      */
-
-
+    /**
+     * 问题：
+     * 1. 假设以后你执行
+     * userRepository.save(user);
+     * 请你按自己的理解说一下：
+     * 从执行这一行代码开始，一直到 PostgreSQL 最终插入一条数据，中间发生了什么？
+     *
+     * 2.什么时候会真正调用
+     * @AllArgsConstructor
+     * Spring 会调用吗？
+     * 还是你自己调用？
+     *
+     * 3. 为什么 JPA 一定需要
+     * @NoArgsConstructor
+     */
 }
