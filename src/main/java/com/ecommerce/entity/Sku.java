@@ -39,7 +39,6 @@ public class Sku {
     private Map<String,String> attributes;
 
     //private enum status;
-
     /*
     这个attributes的配置还没研究：import的和annotation
     gpt：然后我带你一步一步配置：
