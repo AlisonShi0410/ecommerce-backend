@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     /*
@@ -39,14 +41,25 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(LoginRequest request){
+    /*
+    public String login(LoginRequest request){
         User user= userRepository.findByEmail(request.getEmail())
-                .orElseThrow(()->new RuntimeException("Invaild email or password"));
+                .orElseThrow(()->new RuntimeException("Invalid email or password"));
 
         if(!passwordEncoder.matches(request.getPassword(),user.getPasswordHash())){
             throw new RuntimeException("Invalid email or password");
         }
-        return user;
+        return jwtService.generateToken(user);
+    }*/
+    // 练习⬇️
+    public String login(LoginRequest request){
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new RuntimeException("Invalid email"));
+        if(!passwordEncoder.matches(request.getPassword(),user.getPasswordHash())){
+            throw new RuntimeException("Invalid Email or Password");
+        }
+        return jwtService.generateToken(user);
     }
+
 }
 
